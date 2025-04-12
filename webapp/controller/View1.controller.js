@@ -5,7 +5,7 @@ sap.ui.define([
 
     return Controller.extend("odatacrud.controller.View1", {
         onInit() {
-            this.onSorterRead()
+            this.onParametersRead()
         },
         onReadAll:function(){
             var that = this;
@@ -37,6 +37,18 @@ sap.ui.define([
             var oModel= this.getOwnerComponent().getModel()
             var oSorter= new sap.ui.model.Sorter("Price",false)
             oModel.read("/Products",{sorters:[oSorter],
+                success:function(odata){
+                  var jModel= new sap.ui.model.json.JSONModel(odata)
+                  that.getView().byId("idProjects").setModel(jModel)
+                }, error:function(oError){
+                    console.log("oError -> ",oError)
+                }
+            })
+        },
+        onParametersRead:function(){
+            var that = this;
+            var oModel= this.getOwnerComponent().getModel()
+            oModel.read("/Products",{urlParameters:{$skip:2,$top:4},
                 success:function(odata){
                   var jModel= new sap.ui.model.json.JSONModel(odata)
                   that.getView().byId("idProjects").setModel(jModel)
