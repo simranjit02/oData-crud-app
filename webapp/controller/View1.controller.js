@@ -5,7 +5,7 @@ sap.ui.define([
 
     return Controller.extend("odatacrud.controller.View1", {
         onInit() {
-            this.onParametersRead()
+            this.onReadKey()
         },
         onReadAll:function(){
             var that = this;
@@ -51,6 +51,19 @@ sap.ui.define([
             oModel.read("/Products",{urlParameters:{$skip:2,$top:4},
                 success:function(odata){
                   var jModel= new sap.ui.model.json.JSONModel(odata)
+                  that.getView().byId("idProjects").setModel(jModel)
+                }, error:function(oError){
+                    console.log("oError -> ",oError)
+                }
+            })
+        },
+        onReadKey:function(){
+            var that = this;
+            var oModel= this.getOwnerComponent().getModel()
+            oModel.read("/Products(2)",{
+                success:function(odata){
+                    console.log("odata",odata)
+                  var jModel= new sap.ui.model.json.JSONModel({results:[odata]})
                   that.getView().byId("idProjects").setModel(jModel)
                 }, error:function(oError){
                     console.log("oError -> ",oError)
