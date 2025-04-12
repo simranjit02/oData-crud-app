@@ -5,14 +5,13 @@ sap.ui.define([
 
     return Controller.extend("odatacrud.controller.View1", {
         onInit() {
-            this.onFilterRead()
+            this.onSorterRead()
         },
         onReadAll:function(){
             var that = this;
             var oModel= this.getOwnerComponent().getModel()
             oModel.read("/Products",{
                 success:function(odata){
-                    console.log("odata -> ",odata)
                   var jModel= new sap.ui.model.json.JSONModel(odata)
                   that.getView().byId("idProjects").setModel(jModel)
                 }, error:function(oError){
@@ -26,7 +25,19 @@ sap.ui.define([
             var oFilter= new sap.ui.model.Filter("Rating","EQ","3")
             oModel.read("/Products",{filters:[oFilter],
                 success:function(odata){
-                    console.log("odata -> ",odata)
+                  var jModel= new sap.ui.model.json.JSONModel(odata)
+                  that.getView().byId("idProjects").setModel(jModel)
+                }, error:function(oError){
+                    console.log("oError -> ",oError)
+                }
+            })
+        },
+        onSorterRead:function(){
+            var that = this;
+            var oModel= this.getOwnerComponent().getModel()
+            var oSorter= new sap.ui.model.Sorter("Price",false)
+            oModel.read("/Products",{sorters:[oSorter],
+                success:function(odata){
                   var jModel= new sap.ui.model.json.JSONModel(odata)
                   that.getView().byId("idProjects").setModel(jModel)
                 }, error:function(oError){
