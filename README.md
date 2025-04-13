@@ -1,4 +1,6 @@
 ## Application Details
+### ![Preview](../asset/img/UI-Screenshot.png)
+
 |               |
 | ------------- |
 |**Generation Date and Time**<br>Sat Apr 12 2025 10:58:22 GMT+0000 (Coordinated Universal Time)|
