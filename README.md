@@ -1,5 +1,5 @@
 ## Application Details
-### ![Preview](../asset/img/UI-Screenshot.png)
+### ![Preview](asset/img/UI-Screenshot.png)
 
 |               |
 | ------------- |
