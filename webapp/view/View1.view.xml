@@ -17,10 +17,13 @@
                     <Text text="Name" />
                 </Column>
                  <Column>
+                    <Text text="Price" />
+                </Column>
+                 <Column>
                     <Text text="Rating" />
                 </Column>
                  <Column>
-                    <Text text="Price" />
+                    <Text text="" />
                 </Column>
             </columns>
             <items>
@@ -31,12 +34,17 @@
                      <cells>
                         <Text text="{Name}" />
                     </cells>
-                     <cells>
-                        <Text text="{Rating}" />
-                    </cells>
-                     <cells>
+                    <cells>
                         <Text text="$ {Price}" />
                     </cells>
+                     <cells>
+                        <Input value="{Rating}" editable="false" />
+                    </cells>
+                    <HBox>
+                   	<Button text="Edit" press="onEdit" />
+                   	<Button class="sapUiSmallMarginBeginEnd" text="Delete" type="Reject" press="onDelete" />
+                   	<Button text="Duplicate" press="onDuplicate" />
+                    </HBox>
                 </ColumnListItem>
             </items>
            
