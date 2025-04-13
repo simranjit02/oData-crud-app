@@ -119,6 +119,7 @@ sap.ui.define(
                   duration: 2000,
                 });
                 that.getView().getModel("viewModel").setProperty("/isLoading", false);
+                // that.getView().byId("idProjects").getModel().refresh()
                 that.onReadAll();
               },
               error: function (oError) {
