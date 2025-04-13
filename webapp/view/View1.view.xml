@@ -7,22 +7,24 @@
         id="page"
         title="{i18n>title}"
     >
-        <Table id="idProjects" items="{/results}" >
-
+        <Table
+            id="idProjects"
+            items="{/results}"
+        >
             <columns>
                 <Column>
                     <Text text="ID" />
                 </Column>
-                 <Column>
+                <Column>
                     <Text text="Name" />
                 </Column>
-                 <Column>
+                <Column>
                     <Text text="Price" />
                 </Column>
-                 <Column>
+                <Column>
                     <Text text="Rating" />
                 </Column>
-                 <Column>
+                <Column>
                     <Text text="" />
                 </Column>
             </columns>
@@ -31,24 +33,45 @@
                     <cells>
                         <Text text="{ID}" />
                     </cells>
-                     <cells>
+                    <cells>
                         <Text text="{Name}" />
                     </cells>
                     <cells>
                         <Text text="$ {Price}" />
                     </cells>
-                     <cells>
-                        <Input value="{Rating}" editable="false" />
+                    <cells>
+                        <Input
+                            value="{Rating}"
+                            editable="false"
+                        />
                     </cells>
                     <HBox>
-                   	<Button text="Edit" press="onEdit" />
-                   	<Button class="sapUiSmallMarginBeginEnd" text="Delete" type="Reject" press="onDelete" />
-                   	<Button text="Duplicate" press="onDuplicate" />
+                        <Button
+                            text="Edit"
+                            press="onEdit"
+                            busy="false"
+                        />
+                        <Button
+                            class="sapUiSmallMarginBeginEnd"
+                            text="Delete"
+                            type="Reject"
+                            press="onDelete"
+                        />
+                        <Button
+                            text="Duplicate"
+                            press="onDuplicate"
+                        />
                     </HBox>
                 </ColumnListItem>
             </items>
-           
-
         </Table>
+        <HBox>
+            <BusyIndicator
+                id="myBusyIndicator"
+                size="1.6rem"
+                class="sapUiMediumMarginBegin"
+                visible="{viewModel>/isLoading}"
+            />
+        </HBox>
     </Page>
 </mvc:View>

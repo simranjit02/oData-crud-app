@@ -6,6 +6,10 @@ sap.ui.define(
     return Controller.extend("odatacrud.controller.View1", {
       onInit() {
         this.onReadAll();
+        var oViewModel = new sap.ui.model.json.JSONModel({
+            isLoading: false
+          });
+          this.getView().setModel(oViewModel, "viewModel");
       },
       onReadAll: function () {
         var that = this;
@@ -92,6 +96,7 @@ sap.ui.define(
             .setEditable(true);
         } else {
           oEvent.getSource().setText("Edit");
+          that.getView().getModel("viewModel").setProperty("/isLoading", true);
           oEvent
             .getSource()
             .getParent()
@@ -113,6 +118,7 @@ sap.ui.define(
                 MessageToast.show("Data update successfully", {
                   duration: 2000,
                 });
+                that.getView().getModel("viewModel").setProperty("/isLoading", false);
                 that.onReadAll();
               },
               error: function (oError) {
@@ -122,6 +128,47 @@ sap.ui.define(
           );
         }
       },
+      onDuplicate:function(oEvent){
+        var that = this;
+        that.getView().getModel("viewModel").setProperty("/isLoading", true);
+        var oModel = this.getOwnerComponent().getModel();
+        oModel.setUseBatch(false);
+        var oDuplicateData=oEvent.getSource().getBindingContext().getObject();
+        oDuplicateData.ID= 100+oDuplicateData.ID
+        oModel.create("/Products",oDuplicateData,{
+            success: function () {
+              MessageToast.show("New Data Added Successfully", {
+                duration: 2000,
+              });
+              that.getView().getModel("viewModel").setProperty("/isLoading", false);
+              that.onReadAll();
+            },
+            error: function (oError) {
+              console.log("oError -> ", oError);
+            },
+          })
+
+      },
+      onDelete:function(oEvent){
+        var that = this;
+        that.getView().getModel("viewModel").setProperty("/isLoading", true);
+        var oModel = this.getOwnerComponent().getModel();
+        oModel.setUseBatch(false);
+        var oID = oEvent.getSource().getBindingContext().getProperty("ID");
+        oModel.remove("/Products("+oID+")",{
+            success: function () {
+              MessageToast.show("Record Deleted Successfully", {
+                duration: 2000,
+              });
+              that.getView().getModel("viewModel").setProperty("/isLoading", false);
+              that.onReadAll();
+            },
+            error: function (oError) {
+              console.log("oError -> ", oError);
+            },
+          })
+
+      }
     });
   }
 );
